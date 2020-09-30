@@ -25,8 +25,13 @@
 
     export default {
         mounted() {
-            const wrapper = this.$refs.blocksWrapper
+            const wrapper = document.querySelector('.multiple-wrapper')
+
             const blocks = document.getElementsByClassName('block')
+
+            let {width} = window.getComputedStyle(blocks[0])
+
+            width = Math.floor(Number.parseInt(width))
 
             const onMoveStart = function (event) {
                 event.target.style.border = '2px solid black'
@@ -38,7 +43,8 @@
                 style.border = '1px dashed black'
             }
 
-            const leaveHandler = function () {}
+            const leaveHandler = function () {
+            }
 
             const enterHandler = function (below, element) {
                 const belowParent = below.parentNode
@@ -48,13 +54,20 @@
             }
 
             Array.prototype.forEach.call(blocks, item => {
+                item.style.width = width + 'px'
+
                 freedrag(item, {
                     boundary: wrapper.getBoundingClientRect(),
+
                     onlyVerticalMove: true,
+
                     enterHandler,
+
                     leaveHandler,
+
                     moveHandler: {
                         onMoveStart,
+
                         onMoveEnd
                     }
                 })
@@ -65,25 +78,30 @@
 
 <style>
     .multiple-wrapper {
-
-        display: flex;
-        justify-content: center;
-    }
-    .blocks-wrapper {
-        width: 760px;
-    }
-    .blocks-wrapper .block-wrapper {
-        width: 760px;
-        height: 60px;
+        width: 100%;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .blocks-wrapper .block {
-        width: 755px;
-        height: 55px;
-        font-size: 38px;
-        line-height: 55px;
+
+    .blocks-wrapper {
+        width: 70%;
+    }
+
+    .blocks-wrapper .block-wrapper {
+        width: 100%;
+        height: 3.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .blocks-wrapper .block-wrapper .block {
+        width: 100%;
+        font-size: 2rem;
+        line-height: 1.5;
         border: 1px dashed black;
         text-align: center;
         vertical-align: top;

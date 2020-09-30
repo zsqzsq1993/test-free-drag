@@ -7,22 +7,24 @@
     </div>
 </template>
 
-<script lang="ts">
-    import freedrag from "free-drag"
+<script>
+    import freedrag from 'free-drag'
 
     export default {
         mounted() {
             const ball = document.getElementById('ball')
-            if (ball) {
-                freedrag(ball, {
-                    leaveHandler(below) {
-                        below.style.background = 'white'
-                    },
-                    enterHandler(below) {
-                        below.style.background = 'rgba(255,0,0,0.5)'
-                    }
-                })
-            }
+
+            const react = document.querySelector('.pass-wrapper').getBoundingClientRect()
+
+            freedrag(ball, {
+                leaveHandler(below) {
+                    below.style.background = 'white'
+                },
+                enterHandler(below) {
+                    below.style.background = 'rgba(255,0,0,0.5)'
+                },
+                boundary: react
+            })
         }
     }
 </script>
@@ -33,22 +35,28 @@
         width: 100%;
         height: 100%;
     }
+
     .pass-wrapper .ball {
         position: absolute;
         left: 10%;
         top: 10%;
     }
+
     .pass-wrapper .draggable {
         position: absolute;
-        top: 50%
+        left: 70%;
+        transform: translate3d(-50%, -50%, 0);
     }
+
     .pass-wrapper #gate1 {
-        left: 10%;
+        top: 10%;
     }
+
     .pass-wrapper #gate2 {
-        left: 50%;
+        top: 50%;
     }
+
     .pass-wrapper #gate3 {
-        left: 90%;
+        top: 90%;
     }
 </style>

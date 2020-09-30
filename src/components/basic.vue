@@ -6,34 +6,38 @@
     </div>
 </template>
 
-<script lang="ts">
-    import freedrag from "free-drag"
+<script>
+    import freedrag from 'free-drag'
 
     export default {
         mounted() {
             const container = this.$refs.wrapper
+
             const ball1 = this.$refs.ball1
+
             const ball2 = this.$refs.ball2
+
             const ball3 = this.$refs.ball3
+
             const react = container.getBoundingClientRect()
-            if (
-                !ball1 ||
-                !ball2 ||
-                !ball3) {
-                throw new Error('One of balls does not exsist')
-            }
-            freedrag(ball1, {
+
+            const myfreedrag = freedrag.createNewInstance({
+                moveHandler: {
+                    onMoveStart(event) {
+                        event.target.style.transform = 'translate3d(0, 0, 0)'
+                    },
+                },
                 boundary: react
             })
 
-            freedrag({
+            myfreedrag(ball1)
+
+            myfreedrag({
                 element: ball2,
-                boundary: react
             })
 
-            freedrag.draggable({
+            myfreedrag.draggable({
                 element: ball3,
-                boundary: react
             })
         }
     }
@@ -51,11 +55,14 @@
     }
     .basic-wrapper #ball1 {
         left: 10%;
+        transform: translate3d(-50%, 0, 0);
     }
     .basic-wrapper #ball2 {
         left: 50%;
+        transform: translate3d(-50%, 0, 0);
     }
     .basic-wrapper #ball3 {
         left: 90%;
+        transform: translate3d(-50%, 0, 0);
     }
 </style>

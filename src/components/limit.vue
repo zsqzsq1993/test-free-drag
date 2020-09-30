@@ -17,8 +17,11 @@
     export default {
         mounted() {
             const block1 = this.$refs.block1
+
             const block2 = this.$refs.block2
+
             const react1 = this.$refs.bar1.getBoundingClientRect()
+
             const react2 = this.$refs.bar2.getBoundingClientRect()
 
             freedrag(block1, {
@@ -26,12 +29,15 @@
                     left: react1.left,
                     right: react1.right
                 },
+
                 onlyHorizontalMove: true
             })
 
             freedrag({
                 element: block2,
+
                 onlyVerticalMove: true,
+
                 boundary: {
                     top: react2.top,
                     bottom: react2.bottom
@@ -72,7 +78,8 @@
         height: 200px;
     }
     .limit-wrapper .vertical .block {
-        left: 49%;
+        left: 50%;
+        transform: translate3d(-50%, 0, 0);
         width: 30px;
         height: 10px;
     }
